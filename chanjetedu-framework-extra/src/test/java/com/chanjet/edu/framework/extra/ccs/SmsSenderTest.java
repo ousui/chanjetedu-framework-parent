@@ -1,6 +1,5 @@
 package com.chanjet.edu.framework.extra.ccs;
 
-import com.chanjet.edu.framework.extra.ccs.pojo.Response;
 import com.google.common.collect.Sets;
 import org.junit.Test;
 
