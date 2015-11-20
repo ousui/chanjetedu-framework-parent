@@ -37,14 +37,4 @@
 
     </dependencies>
 
-
-    <repositories>
-
-        <repository>
-            <id>repo.chanjet.edu</id>
-            <name>edu.chanjet.com maven repository</name>
-            <url>http://172.18.4.65:8480/content/groups/public/</url>
-        </repository>
-
-    </repositories>
 </project>
