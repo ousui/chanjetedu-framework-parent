@@ -37,10 +37,12 @@ public class SmsSender {
         String mobiles = phones.toString().replace(" ", "").replace("[", "").replace("]", "");
         logger.debug("发送信息，手机号码为：{}", mobiles);
         String       result = ccpService.sendNoticeSms(content, mobiles, null);
+        logger.debug("发送结果[str]：{}", result);
         Response resp   = Response.parse(result);
-        logger.debug("发送结果：{}", resp);
+        logger.debug("发送结果[obj]：{}", resp);
 
         if (resp.getHttpCode() != 200) {
+        logger.error("发送失败[obj]：{}", resp);
             throw new SendException("访问错误：" + resp.getInfo());
         }
 
