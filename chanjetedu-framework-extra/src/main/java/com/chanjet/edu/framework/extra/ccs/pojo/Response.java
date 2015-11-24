@@ -36,11 +36,11 @@ public class Response implements Serializable {
         }
     }
 
-    public void setInfo(String info) {
+    public void setInfo(Object info) {
         try {
-            this.infoJson = JSONObject.parseObject(info);
-        } catch (JSONException e) {
-            this.info = info;
+            this.infoJson = JSONObject.parseObject(String.valueOf(info));
+        } catch (Exception e) {
+            this.info = String.valueOf(info);
         }
     }
 
