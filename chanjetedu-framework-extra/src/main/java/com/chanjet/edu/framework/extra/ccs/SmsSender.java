@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 public class SmsSender {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger logger = LoggerFactory.getLogger(SmsSender.class);
 
 	@Getter
 	private final String appkey;
@@ -24,6 +24,7 @@ public class SmsSender {
 	private final CcpService ccpService;
 
 	public static SmsSender i(String appkey, String appsecret) {
+		logger.debug("--------------- appkey:{}, secret: ***{} ", appkey, appsecret.substring(3));
 		return new SmsSender(appkey, appsecret);
 	}
 
@@ -36,6 +37,7 @@ public class SmsSender {
 	public Response send(String content, Set<Long> phones) throws SendException {
 		String mobiles = phones.toString().replace(" ", "").replace("[", "").replace("]", "");
 		logger.debug("发送信息，手机号码为：{}", mobiles);
+		logger.debug("发送信息，内容：{}", content);
 		String result = ccpService.sendNoticeSms(content, mobiles, null);
 		logger.debug("发送结果[str]：{}", result);
 		Response resp = Response.parse(result);
