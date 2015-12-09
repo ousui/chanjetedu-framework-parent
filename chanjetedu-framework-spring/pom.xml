@@ -15,4 +15,43 @@
     <description>
         spring 框架相关的扩展，基础等。
     </description>
+
+    <properties>
+        <ver.spring>4.2.2.RELEASE</ver.spring>
+        <ver.gson>2.4</ver.gson>
+    </properties>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.chanjet.edu.framework</groupId>
+            <artifactId>chanjetedu-framework-base</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${ver.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.0.3.Final</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
 </project>
