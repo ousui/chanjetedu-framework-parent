@@ -14,11 +14,11 @@ public class HibernateStatisticsFilter extends BaseFilter {
 
 	private String sessionFactoryBeanName = DEFAULT_SESSION_FACTORY_BEAN_NAME;
 
-	private String getStatistics() {
+	public String getStatistics() {
 		return JSON.toJSONString(lookupSessionFactory().getStatistics());
 	}
 
-	private String getOptions() {
+	public String getOptions() {
 		return JSON.toJSONString((lookupSessionFactory().getSessionFactoryOptions()));
 	}
 

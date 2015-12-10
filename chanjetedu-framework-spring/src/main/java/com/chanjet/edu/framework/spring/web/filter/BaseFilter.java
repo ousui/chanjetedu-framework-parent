@@ -51,9 +51,8 @@ public abstract class BaseFilter extends OncePerRequestFilter {
 			} catch (Exception e) {
 				logger.warn("exception: {}", e.getLocalizedMessage());
 			}
-			writer.write(str);
 		}
-
+		writer.write(str);
 		writer.flush();
 		writer.close();
 	}
