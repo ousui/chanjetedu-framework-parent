@@ -32,17 +32,22 @@ public abstract class BaseFilter extends OncePerRequestFilter {
 		if (uri.lastIndexOf("refresh/") > 0) {
 			String time = uri.substring(uri.lastIndexOf("refresh/")).replaceAll("\\D", "");
 			logger.debug("use refresh mode, time is {}", time);
-			response.setHeader("Refresh", time + "; url=" + uri);
+			String refreshUrl = uri;
+			String queryStr = request.getQueryString();
+
+			if (!Strings.isNullOrEmpty(queryStr)) {
+				refreshUrl += "?" + queryStr;
+			}
+			response.setHeader("Refresh", time + "; url=" + refreshUrl);
 		}
 		Writer writer = response.getWriter();
 		String cmd = request.getParameter("cmd");
 		String method = request.getMethod();
 
+		String str = initWelcomeInfo();
 		if (!Strings.isNullOrEmpty(cmd)) {
-
-			String str = initWelcomeInfo();
 			try {
-				str = (String) this.getClass().getMethod(method + StringUtils.capitalize(cmd)).invoke(this);
+				str = (String) this.getClass().getMethod(method.toLowerCase() + StringUtils.capitalize(cmd)).invoke(this);
 			} catch (Exception e) {
 				logger.warn("exception: {}", e.getLocalizedMessage());
 			}

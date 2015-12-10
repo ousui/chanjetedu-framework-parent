@@ -38,6 +38,6 @@ public class HibernateStatisticsFilter extends BaseFilter {
 
 	@Override
 	protected String initWelcomeInfo() {
-		return "Hibernate Static";
+		return "Welcome Hibernate Statistics! You can use these commands: statistics, options";
 	}
 }
