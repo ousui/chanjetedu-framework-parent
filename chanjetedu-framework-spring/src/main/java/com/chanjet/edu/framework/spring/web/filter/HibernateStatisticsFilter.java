@@ -22,8 +22,12 @@ public class HibernateStatisticsFilter extends BaseFilter {
 		return JSON.toJSONString((lookupSessionFactory().getSessionFactoryOptions()));
 	}
 
+	public String getInfo() {
+		return JSON.toJSONString((lookupSessionFactory().getSessionFactoryOptions()));
+	}
+
 	private SessionFactory lookupSessionFactory() {
-		logger.debug("Using SessionFactory '" + getSessionFactoryBeanName() + "' for OpenSessionInViewFilter");
+		logger.debug("Using SessionFactory '" + getSessionFactoryBeanName() + "' for HibernateStatisticsFilter");
 		WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
 		return wac.getBean(getSessionFactoryBeanName(), SessionFactory.class);
 	}
