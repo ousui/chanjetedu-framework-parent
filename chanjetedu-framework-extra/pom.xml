@@ -5,7 +5,7 @@
     <parent>
         <artifactId>chanjetedu-framework-parent</artifactId>
         <groupId>com.chanjet.edu.framework</groupId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -28,6 +28,11 @@
         <dependency>
             <groupId>com.chanjet.ccs</groupId>
             <artifactId>ccp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.chanjet.ccs</groupId>
+            <artifactId>ses</artifactId>
         </dependency>
 
         <dependency>

@@ -1,6 +1,6 @@
-package com.chanjet.edu.framework.extra.ccs;
+package com.chanjet.edu.framework.extra.ccs.ccp;
 
-import com.chanjet.edu.framework.extra.ccs.pojo.Response;
+import com.chanjet.edu.framework.extra.ccs.Response;
 import com.google.common.collect.Sets;
 import org.junit.Test;
 

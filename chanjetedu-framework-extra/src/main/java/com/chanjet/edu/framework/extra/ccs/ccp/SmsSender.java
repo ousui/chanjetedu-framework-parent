@@ -1,7 +1,8 @@
-package com.chanjet.edu.framework.extra.ccs;
+package com.chanjet.edu.framework.extra.ccs.ccp;
 
 import com.chanjet.ccs.ccp.service.CcpService;
-import com.chanjet.edu.framework.extra.ccs.pojo.Response;
+import com.chanjet.edu.framework.extra.ccs.Response;
+import com.chanjet.edu.framework.extra.ccs.SendException;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +62,6 @@ public class SmsSender {
 		String result = ccpService.getNoticeAmount();
 		logger.debug(result);
 		return Response.parse(result);
-
 	}
 
 
