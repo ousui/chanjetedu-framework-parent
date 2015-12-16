@@ -5,12 +5,15 @@ import com.chanjet.ccs.ses.service.SesService;
 import com.chanjet.edu.framework.base.utils.StringUtils;
 import com.chanjet.edu.framework.extra.ccs.Response;
 import com.chanjet.edu.framework.extra.ccs.SendException;
+import com.google.common.base.Charsets;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
@@ -93,10 +96,16 @@ public class MailSender {
 		subject = this.getTitlePrefix() + subject;
 		logger.debug("this subject is: {}", subject);
 
-		logger.debug("the content is: {}", content);
-
+		try {
+			logger.debug("the conten is: {}", content);
+			content = URLEncoder.encode(content, Charsets.UTF_8.name());
+		} catch (UnsupportedEncodingException e) {
+			logger.warn("can't convert encode to [{}] for the content.", Charsets.UTF_8);
+		}
+		logger.debug("the encode content is: {}", content);
+		logger.debug("the sign is: {}", this.getSign());
 		String receivers = StringUtils.collectionToDelimitedString(emails, ",");
-		logger.debug("the receivers is[{}]", receivers);
+		logger.debug("the receivers is [{}]", receivers);
 		Date now = new Date();
 		if (sendTime != null && sendTime.before(now)) {
 			logger.debug("the sendTime[{}] <= now time[{}], send now!", sendTime, now);

@@ -42,7 +42,7 @@ public class Response implements Serializable {
 			this.infoJson = JSONObject.parseObject(String.valueOf(info));
 		} catch (Exception e) {
 			this.info = String.valueOf(info);
-			logger.error("pares string[{}] happend error: {}", info, e.getLocalizedMessage());
+			logger.warn("pares string[{}] happend error: {}", info, e.getLocalizedMessage());
 		}
 	}
 
