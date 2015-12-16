@@ -3,6 +3,7 @@ package com.chanjet.edu.framework.extra.ccs.ccp;
 import com.chanjet.ccs.ccp.service.CcpService;
 import com.chanjet.edu.framework.extra.ccs.Response;
 import com.chanjet.edu.framework.extra.ccs.SendException;
+import com.google.common.collect.Sets;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,10 @@ public class SmsSender {
 		this.appkey = appkey;
 		this.appsecret = appsecret;
 		this.ccpService = new CcpService(appkey, appsecret, UUID.randomUUID().toString());
+	}
+
+	public Response send(String content, Long phone) throws SendException {
+		return send(content, Sets.newHashSet(phone));
 	}
 
 	public Response send(String content, Set<Long> phones) throws SendException {

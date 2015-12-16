@@ -5,6 +5,7 @@ import com.chanjet.ccs.ses.service.SesService;
 import com.chanjet.edu.framework.base.utils.StringUtils;
 import com.chanjet.edu.framework.extra.ccs.Response;
 import com.chanjet.edu.framework.extra.ccs.SendException;
+import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -66,25 +67,34 @@ public class MailSender {
 	/**
 	 * 发送通知邮件。
 	 */
-	public Response send(String title, String content, Set<String> emails) throws SendException {
-		return this.send(Type.BUSINESS, this.getTitlePrefix() + title, content, emails, new Date());
+	public Response send(String subject, String content, String email) throws SendException {
+		return this.send(Type.BUSINESS, subject, content, Sets.newHashSet(email), new Date());
+	}
+
+	public Response send(String subject, String content, Set<String> emails) throws SendException {
+		return this.send(Type.BUSINESS, subject, content, emails, new Date());
 	}
 
 	/**
 	 * 定时发送通知邮件
 	 *
-	 * @param title
+	 * @param subject
 	 * @param content
 	 * @param emails
 	 * @param time
 	 * @return
 	 * @throws SendException
 	 */
-	public Response send(String title, String content, Set<String> emails, Date time) throws SendException {
-		return this.send(Type.BUSINESS, title, content, emails, time);
+	public Response send(String subject, String content, Set<String> emails, Date time) throws SendException {
+		return this.send(Type.BUSINESS, subject, content, emails, time);
 	}
 
-	private Response send(Type type, String title, String content, Set<String> emails, Date sendTime) throws SendException {
+	private Response send(Type type, String subject, String content, Set<String> emails, Date sendTime) throws SendException {
+		subject = this.getTitlePrefix() + subject;
+		logger.debug("this subject is: {}", subject);
+
+		logger.debug("the content is: {}", content);
+
 		String receivers = StringUtils.collectionToDelimitedString(emails, ",");
 		logger.debug("the receivers is[{}]", receivers);
 		Date now = new Date();
@@ -96,10 +106,10 @@ public class MailSender {
 		String result = "";
 		switch (type) {
 			case MARKET:
-				result = sesService.sendMTMail(title, content, receivers, this.getSign(), sendTime);
+				result = sesService.sendMTMail(subject, content, receivers, this.getSign(), sendTime);
 				break;
 			case BUSINESS:
-				result = sesService.sendBTMail(title, content, receivers, this.getSign(), sendTime);
+				result = sesService.sendBTMail(subject, content, receivers, this.getSign(), sendTime);
 				break;
 			default:
 				break;
