@@ -23,7 +23,17 @@ public class HibernateStatisticsFilter extends BaseFilter {
 	}
 
 	public String getInfo() {
-		return JSON.toJSONString((lookupSessionFactory().getSessionFactoryOptions()));
+		return JSON.toJSONString((lookupSessionFactory().getSessionFactoryOptions().getJdbcBatchSize()));
+	}
+
+	public String putEnabled() {
+		lookupSessionFactory().getStatistics().setStatisticsEnabled(true);
+		return JSON.toJSONString("ok");
+	}
+
+	public String putDisabled() {
+		lookupSessionFactory().getStatistics().setStatisticsEnabled(false);
+		return JSON.toJSONString("ok");
 	}
 
 	private SessionFactory lookupSessionFactory() {
