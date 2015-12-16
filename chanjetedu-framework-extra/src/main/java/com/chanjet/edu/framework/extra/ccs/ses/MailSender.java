@@ -30,7 +30,6 @@ public class MailSender {
 	private final String appsecret;
 
 	@Setter
-	@Getter
 	private String titlePrefix = "【畅捷教育】";
 
 	@Setter
@@ -133,6 +132,10 @@ public class MailSender {
 		}
 
 		return resp;
+	}
+
+	public String getTitlePrefix() {
+		return titlePrefix == null ? "" : titlePrefix;
 	}
 
 	enum Type {
