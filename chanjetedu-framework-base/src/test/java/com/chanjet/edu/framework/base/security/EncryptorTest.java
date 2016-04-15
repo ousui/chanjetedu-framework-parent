@@ -1,7 +1,6 @@
 package com.chanjet.edu.framework.base.security;
 
 import org.junit.Test;
-import org.springframework.core.serializer.DefaultDeserializer;
 import org.springframework.core.serializer.DefaultSerializer;
 
 import java.io.File;
@@ -37,8 +36,7 @@ public class EncryptorTest {
 	@Test
 	public void decrypt() throws IOException {
 		FileInputStream fis = new FileInputStream(file);
-		byte[] x = (byte[]) new DefaultDeserializer().deserialize(fis);
-		Integer ii = encryptor.decrypt(Integer.class, x);
+		String ii = encryptor.decrypt(String.class, fis);
 		System.out.println(ii);
 	}
 

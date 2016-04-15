@@ -3,6 +3,7 @@ package com.chanjet.edu.framework.base.security;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.NestedIOException;
 import org.springframework.util.Assert;
 
 import javax.crypto.*;
@@ -80,6 +81,7 @@ public class Encryptor {
 
 	/**
 	 * 加密 byte 数组，返回 byte 数组
+	 *
 	 * @param content
 	 * @return
 	 */
@@ -100,6 +102,7 @@ public class Encryptor {
 
 	/**
 	 * 加密对象
+	 *
 	 * @param object
 	 * @return
 	 * @throws IOException
@@ -114,6 +117,7 @@ public class Encryptor {
 
 	/**
 	 * 解密数组，并返回数组
+	 *
 	 * @param content
 	 * @return
 	 */
@@ -134,6 +138,7 @@ public class Encryptor {
 
 	/**
 	 * 按照类型进行揭秘
+	 *
 	 * @param clazz
 	 * @param content
 	 * @param <T>
@@ -153,6 +158,17 @@ public class Encryptor {
 		} catch (ClassCastException e) {
 			logger.error("类型转换错误, {}", e.getLocalizedMessage());
 			return null;
+		}
+	}
+
+	public <T> T decrypt(Class<T> clazz, InputStream inputStream) throws IOException {
+		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+		try {
+			byte[] content = (byte[]) objectInputStream.readObject();
+			objectInputStream.close();
+			return this.decrypt(clazz, content);
+		} catch (ClassNotFoundException ex) {
+			throw new NestedIOException("Failed to deserialize object type", ex);
 		}
 	}
 }
