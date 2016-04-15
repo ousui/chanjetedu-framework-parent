@@ -6,7 +6,7 @@
 
     <groupId>com.chanjet.edu.framework</groupId>
     <artifactId>chanjetedu-framework-parent</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
     <modules>
         <module>chanjetedu-framework-base</module>
         <module>chanjetedu-framework-spring</module>

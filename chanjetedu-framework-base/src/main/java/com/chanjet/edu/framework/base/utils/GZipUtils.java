@@ -62,7 +62,7 @@ public abstract class GZipUtils {
 	 */
 	public static boolean compress(File file) {
 		try {
-			File copy = new File(file.getAbsolutePath()+"~copy");
+			File copy = new File(file.getAbsolutePath() + "~copy");
 			file.renameTo(copy);
 			FileInputStream fis = new FileInputStream(copy);
 			FileOutputStream fos = new FileOutputStream(file);
@@ -146,7 +146,7 @@ public abstract class GZipUtils {
 	 */
 	public static boolean decompress(File file) {
 		try {
-			File copy = new File(file.getAbsolutePath()+"~copy");
+			File copy = new File(file.getAbsolutePath() + "~copy");
 			file.renameTo(copy);
 			FileInputStream fis = new FileInputStream(copy);
 			FileOutputStream fos = new FileOutputStream(file);
