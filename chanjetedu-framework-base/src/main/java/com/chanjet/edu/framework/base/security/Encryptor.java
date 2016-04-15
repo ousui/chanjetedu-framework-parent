@@ -111,7 +111,8 @@ public class Encryptor {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(BUFFER);
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(baos);
 		objectOutputStream.writeObject(object);
-		objectOutputStream.flush();
+		objectOutputStream.close();
+		baos.close();
 		return this.encrypt(baos.toByteArray());
 	}
 
