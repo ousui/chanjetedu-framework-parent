@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class EncryptorTest {
 
-	private File file = new File("F:/go");
+	private File file = new File("F:/X1");
 	private Encryptor encryptor = Encryptor.i("1111111111");
 
 	@Test

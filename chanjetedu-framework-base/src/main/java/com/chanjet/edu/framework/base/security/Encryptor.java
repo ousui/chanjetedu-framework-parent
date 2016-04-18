@@ -98,7 +98,7 @@ public class Encryptor {
 		try {
 			cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
 			byte[] result = cipher.doFinal(content);
-			return result;
+			return serializingConverter.convert(result);
 		} catch (InvalidKeyException e) {
 			logger.warn("无效key：{}", key);
 		} catch (BadPaddingException e) {
@@ -120,7 +120,7 @@ public class Encryptor {
 		// 对 object 反序列化成 byte 数组
 		byte[] src = serializingConverter.convert(object);
 		// 再次序列化加密后的字符串，这里是序列化为 object
-		return serializingConverter.convert(this.encrypt(src));
+		return this.encrypt(src);
 	}
 
 	/**
@@ -130,6 +130,7 @@ public class Encryptor {
 	 * @return
 	 */
 	public byte[] decrypt(byte[] content) {
+		content = (byte[]) deserializingConverter.convert(content);
 		try {
 			cipher.init(Cipher.DECRYPT_MODE, key);// 初始化
 			byte[] result = cipher.doFinal(content);
@@ -154,8 +155,6 @@ public class Encryptor {
 	 * @throws IOException
 	 */
 	public <T> T decrypt(Class<T> clazz, byte[] content) throws IOException {
-		// 反序列化得到加密后结果
-		content = (byte[]) deserializingConverter.convert(content);
 		// 解密，并且将结果转换为对象。
 		return (T) deserializingConverter.convert(this.decrypt(content));
 	}
