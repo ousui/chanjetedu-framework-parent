@@ -18,14 +18,14 @@ import java.util.Map;
  */
 public class EncryptorTest {
 
-	private File file = new File("F:/X1");
-	private Encryptor encryptor = Encryptor.i("1111111111");
+	private File file = new File("F:/x.dat");
+	private ObjectEncryptor encryptor = ObjectEncryptor.i("1111111111");
 
 	@Test
 	public void encrypt() throws Exception {
 
 		Map<String, Object> hw = Maps.newHashMap();
-		hw.put("K", "SSSSSSSSSSSSSSS");
+		hw.put("K", "我知道");
 		hw.put("K2", StringUtils.class);
 		hw.put("K3", new BaseServiceImpl());
 
@@ -36,8 +36,12 @@ public class EncryptorTest {
 	@Test
 	public void decrypt() throws IOException {
 		FileInputStream fis = new FileInputStream(file);
-		HashMap ii = encryptor.decrypt(HashMap.class, fis);
-		System.out.println(ii);
+//		byte[] oo = (byte[]) new DefaultDeserializer().deserialize(fis);
+//		oo = (byte[]) new DeserializingConverter().convert(oo);
+//		System.out.println(oo);
+//		byte[] dd = encryptor.decrypt(oo);
+		HashMap ii = Encryptor.i("1111111111").decrypt(HashMap.class, fis);
+		System.out.println("ii = " + ii);
 	}
 
 

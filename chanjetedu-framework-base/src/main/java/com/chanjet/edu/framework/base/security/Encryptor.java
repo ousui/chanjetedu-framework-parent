@@ -1,7 +1,6 @@
 package com.chanjet.edu.framework.base.security;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.serializer.DefaultDeserializer;
@@ -25,12 +24,7 @@ import java.security.SecureRandom;
 public class Encryptor {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	@Setter
-	private int buffer = 1024;
-
-	private final SerializingConverter serializingConverter = new SerializingConverter();
-	private final DeserializingConverter deserializingConverter = new DeserializingConverter();
+	private final static int BUFFER = 1024;
 	/**
 	 * 加密使用的密钥；
 	 */
@@ -58,7 +52,7 @@ public class Encryptor {
 		}
 		this.encryptType = encryptType;
 
-		init();
+		this.init();
 	}
 
 	/**
@@ -94,11 +88,10 @@ public class Encryptor {
 	 * @param content
 	 * @return
 	 */
-	public byte[] encrypt(byte[] content) {
+	private byte[] encrypt(byte[] content) {
 		try {
 			cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
-			byte[] result = cipher.doFinal(content);
-			return serializingConverter.convert(result);
+			return cipher.doFinal(content);
 		} catch (InvalidKeyException e) {
 			logger.warn("无效key：{}", key);
 		} catch (BadPaddingException e) {
@@ -117,9 +110,7 @@ public class Encryptor {
 	 * @throws IOException
 	 */
 	public byte[] encrypt(Object object) throws IOException {
-		// 对 object 反序列化成 byte 数组
-		byte[] src = serializingConverter.convert(object);
-		// 再次序列化加密后的字符串，这里是序列化为 object
+		byte[] src = new SerializingConverter().convert(object);
 		return this.encrypt(src);
 	}
 
@@ -129,12 +120,10 @@ public class Encryptor {
 	 * @param content
 	 * @return
 	 */
-	public byte[] decrypt(byte[] content) {
-		content = (byte[]) deserializingConverter.convert(content);
+	private byte[] decrypt(byte[] content) {
 		try {
 			cipher.init(Cipher.DECRYPT_MODE, key);// 初始化
-			byte[] result = cipher.doFinal(content);
-			return result;
+			return cipher.doFinal(content);
 		} catch (InvalidKeyException e) {
 			logger.warn("无效key：{}", key);
 		} catch (BadPaddingException e) {
@@ -155,12 +144,16 @@ public class Encryptor {
 	 * @throws IOException
 	 */
 	public <T> T decrypt(Class<T> clazz, byte[] content) throws IOException {
-		// 解密，并且将结果转换为对象。
-		return (T) deserializingConverter.convert(this.decrypt(content));
+		try {
+			return (T) new DeserializingConverter().convert(this.decrypt(content));
+		} catch (ClassCastException e) {
+			logger.error("类型转换错误, {}", e.getLocalizedMessage());
+			return null;
+		}
 	}
 
 	public <T> T decrypt(Class<T> clazz, InputStream inputStream) throws IOException {
-		byte[] content = (byte[]) new DefaultDeserializer().deserialize(inputStream);
-		return this.decrypt(clazz, content);
+		byte[] src = (byte[]) new DefaultDeserializer().deserialize(inputStream);
+		return this.decrypt(clazz, src);
 	}
 }
