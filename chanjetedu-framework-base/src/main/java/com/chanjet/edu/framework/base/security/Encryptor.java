@@ -1,14 +1,18 @@
 package com.chanjet.edu.framework.base.security;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.NestedIOException;
+import org.springframework.core.serializer.DefaultDeserializer;
+import org.springframework.core.serializer.support.DeserializingConverter;
+import org.springframework.core.serializer.support.SerializingConverter;
 import org.springframework.util.Assert;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -21,7 +25,12 @@ import java.security.SecureRandom;
 public class Encryptor {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private final static int BUFFER = 1024;
+
+	@Setter
+	private int buffer = 1024;
+
+	private final SerializingConverter serializingConverter = new SerializingConverter();
+	private final DeserializingConverter deserializingConverter = new DeserializingConverter();
 	/**
 	 * 加密使用的密钥；
 	 */
@@ -108,12 +117,10 @@ public class Encryptor {
 	 * @throws IOException
 	 */
 	public byte[] encrypt(Object object) throws IOException {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream(BUFFER);
-		ObjectOutputStream objectOutputStream = new ObjectOutputStream(baos);
-		objectOutputStream.writeObject(object);
-		objectOutputStream.close();
-		baos.close();
-		return this.encrypt(baos.toByteArray());
+		// 对 object 反序列化成 byte 数组
+		byte[] src = serializingConverter.convert(object);
+		// 再次序列化加密后的字符串，这里是序列化为 object
+		return serializingConverter.convert(this.encrypt(src));
 	}
 
 	/**
@@ -147,29 +154,14 @@ public class Encryptor {
 	 * @throws IOException
 	 */
 	public <T> T decrypt(Class<T> clazz, byte[] content) throws IOException {
-		ByteArrayInputStream byteStream = new ByteArrayInputStream(this.decrypt(content));
-		ObjectInputStream objectInputStream = new ObjectInputStream(byteStream);
-		byteStream.close();
-		objectInputStream.close();
-		try {
-			return (T) objectInputStream.readObject();
-		} catch (ClassNotFoundException e) {
-			logger.error("没有找到该类, {}", e.getLocalizedMessage());
-			return null;
-		} catch (ClassCastException e) {
-			logger.error("类型转换错误, {}", e.getLocalizedMessage());
-			return null;
-		}
+		// 反序列化得到加密后结果
+		content = (byte[]) deserializingConverter.convert(content);
+		// 解密，并且将结果转换为对象。
+		return (T) deserializingConverter.convert(this.decrypt(content));
 	}
 
 	public <T> T decrypt(Class<T> clazz, InputStream inputStream) throws IOException {
-		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-		try {
-			byte[] content = (byte[]) objectInputStream.readObject();
-			objectInputStream.close();
-			return this.decrypt(clazz, content);
-		} catch (ClassNotFoundException ex) {
-			throw new NestedIOException("Failed to deserialize object type", ex);
-		}
+		byte[] content = (byte[]) new DefaultDeserializer().deserialize(inputStream);
+		return this.decrypt(clazz, content);
 	}
 }
