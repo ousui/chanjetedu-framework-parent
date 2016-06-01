@@ -30,7 +30,7 @@ public class MailSenderTest {
 	public void testSend() throws SendException, UnsupportedEncodingException {
 		String content = "shuaiwang&nbsp;您好<br/>&nbsp;&nbsp;&nbsp;&nbsp;感谢您在畅捷教育云平台上申请教师账号。账号正在审批过程中，通过后会有邮件通知，请留意。";
 
-		Response resp = mailSender.send("用户注册", content, Sets.newHashSet("wangshuaig@chanjet.com", "ppwangs@qq.com"));
+		Response resp = mailSender.send("用户注册", content, Sets.newHashSet("x@ousui.org"));
 		System.out.println("resp = " + resp);
 	}
 

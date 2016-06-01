@@ -2,45 +2,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>chanjetedu-framework-parent</artifactId>
-        <groupId>com.chanjet.edu.framework</groupId>
-        <version>1.0.5-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chanjetedu-framework-spring</artifactId>
+    <parent>
+        <groupId>com.chanjet.edu.framework</groupId>
+        <artifactId>chanjetedu-framework-parent</artifactId>
+        <version>1.0.5-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>chanjetedu-framework-mybatis</artifactId>
+
     <packaging>jar</packaging>
 
-    <description>
-        spring 框架相关的扩展，基础等。
-    </description>
+    <description> mybatis 框架相关扩展，基于 3.4 </description>
 
     <dependencies>
-
         <dependency>
             <groupId>com.chanjet.edu.framework</groupId>
             <artifactId>chanjetedu-framework-base</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>org.mybatis.scripting</groupId>
+            <artifactId>mybatis-velocity</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
+
+
 </project>
