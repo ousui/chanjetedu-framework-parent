@@ -21,10 +21,10 @@
     <properties>
         <ver.spring>4.2.6.RELEASE</ver.spring>
         <ver.hibernate>5.0.3.Final</ver.hibernate>
-        <ver.struts>2.3.24</ver.struts>
+        <ver.struts>2.5</ver.struts>
         <ver.slf4j>1.7.21</ver.slf4j>
         <ver.log4j2>2.5</ver.log4j2>
-
+        <ver.shiro>1.2.5</ver.shiro>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -238,7 +238,18 @@
                 <version>1.4.191</version>
             </dependency>
             <!--test -->
-
+            <!--shiro-->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-core</artifactId>
+                <version>${ver.shiro}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${ver.shiro}</version>
+            </dependency>
+            <!--shiro - -->
         </dependencies>
     </dependencyManagement>
 
@@ -301,6 +312,7 @@
             <!--主要用来对代码自动生成 getter setter 构造方法的工具，需要 IDE 支持才不会彻底报错。
             编译后不再需要，所以使用scope 为 provide-->
         </dependency>
+
 
     </dependencies>
 
