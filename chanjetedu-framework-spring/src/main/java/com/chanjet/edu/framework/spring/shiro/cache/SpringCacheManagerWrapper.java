@@ -1,12 +1,12 @@
 package com.chanjet.edu.framework.spring.shiro.cache;
 
-import lombok.Setter;
 import org.apache.shiro.cache.CacheException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.support.SimpleValueWrapper;
+import org.springframework.util.Assert;
 
 import java.util.Collection;
 import java.util.Set;
@@ -19,8 +19,12 @@ public class SpringCacheManagerWrapper implements org.apache.shiro.cache.CacheMa
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Setter
-	private CacheManager cacheManager;
+	private final CacheManager cacheManager;
+
+	public SpringCacheManagerWrapper(CacheManager cacheManager) {
+		Assert.notNull(cacheManager);
+		this.cacheManager = cacheManager;
+	}
 
 	@Override
 	public <K, V> org.apache.shiro.cache.Cache<K, V> getCache(String name) throws CacheException {
