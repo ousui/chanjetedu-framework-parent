@@ -18,8 +18,8 @@ import java.util.Map;
  */
 public class EncryptorTest {
 
-	private File file = new File("F:/x1.dat");
-	private File file2= new File("F:/x2.dat");
+	private File file = new File("F:/x11.dat");
+	private File file2= new File("F:/x22.dat");
 
 	@Test
 	public void encrypt() throws Exception {
@@ -29,10 +29,10 @@ public class EncryptorTest {
 		hw.put("K3", new BaseServiceImpl());
 
 		FileOutputStream fos = new FileOutputStream(file);
-		new DefaultSerializer().serialize(Encryptor.i("1111111111").encrypt(hw), fos);
+		new DefaultSerializer().serialize(Encryptor.i("1232").encrypt(hw), fos);
 
 		FileOutputStream fos2 = new FileOutputStream(file2);
-		new DefaultSerializer().serialize(Encryptor.i("1111111111").encrypt(hw), fos2);
+		new DefaultSerializer().serialize(Encryptor.i("1232").encrypt(hw), fos2);
 	}
 
 	@Test

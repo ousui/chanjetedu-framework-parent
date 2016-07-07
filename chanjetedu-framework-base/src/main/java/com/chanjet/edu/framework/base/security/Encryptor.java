@@ -60,13 +60,17 @@ public class Encryptor {
 	 */
 	private void init() {
 		KeyGenerator keygen;
+		SecureRandom sr;
 		try {
 			keygen = KeyGenerator.getInstance(encryptType.getName());
+			sr = SecureRandom.getInstance("SHA1PRNG");
+
 		} catch (NoSuchAlgorithmException e) {
 			logger.warn("不支持的加密类型：{}", encryptType);
 			return;
 		}
-		keygen.init(128, new SecureRandom(password.getBytes()));
+		sr.setSeed(password.getBytes());
+		keygen.init(128, sr);
 		SecretKey secretKey = keygen.generateKey();
 		byte[] enCodeFormat = secretKey.getEncoded();
 		key = new SecretKeySpec(enCodeFormat, encryptType.getName());
