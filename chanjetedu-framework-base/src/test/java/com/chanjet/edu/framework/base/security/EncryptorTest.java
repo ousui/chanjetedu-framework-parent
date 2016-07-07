@@ -18,19 +18,21 @@ import java.util.Map;
  */
 public class EncryptorTest {
 
-	private File file = new File("F:/x.dat");
-	private ObjectEncryptor encryptor = ObjectEncryptor.i("1111111111");
+	private File file = new File("F:/x1.dat");
+	private File file2= new File("F:/x2.dat");
 
 	@Test
 	public void encrypt() throws Exception {
-
 		Map<String, Object> hw = Maps.newHashMap();
 		hw.put("K", "我知道");
 		hw.put("K2", StringUtils.class);
 		hw.put("K3", new BaseServiceImpl());
 
 		FileOutputStream fos = new FileOutputStream(file);
-		new DefaultSerializer().serialize(encryptor.encrypt(hw), fos);
+		new DefaultSerializer().serialize(Encryptor.i("1111111111").encrypt(hw), fos);
+
+		FileOutputStream fos2 = new FileOutputStream(file2);
+		new DefaultSerializer().serialize(Encryptor.i("1111111111").encrypt(hw), fos2);
 	}
 
 	@Test
