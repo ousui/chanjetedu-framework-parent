@@ -6,7 +6,7 @@
 
     <groupId>com.chanjet.edu.framework</groupId>
     <artifactId>chanjetedu-framework-parent</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.5</version>
     <modules>
         <module>chanjetedu-framework-base</module>
         <module>chanjetedu-framework-spring</module>
@@ -50,7 +50,7 @@
             <dependency>
                 <groupId>com.chanjet.edu.framework</groupId>
                 <artifactId>chanjetedu-framework-base</artifactId>
-                <version>1.0.5-SNAPSHOT</version>
+                <version>1.0.5</version>
             </dependency>
 
             <!--hibernate -->
