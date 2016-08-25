@@ -19,12 +19,14 @@
 
 
     <properties>
-        <ver.spring>4.2.6.RELEASE</ver.spring>
-        <ver.hibernate>5.0.3.Final</ver.hibernate>
-        <ver.struts>2.5</ver.struts>
+        <ver.spring>4.3.2.RELEASE</ver.spring>
+        <ver.hibernate>5.2.2.Final</ver.hibernate>
+        <ver.struts>2.5.2</ver.struts>
         <ver.slf4j>1.7.21</ver.slf4j>
-        <ver.log4j2>2.5</ver.log4j2>
-        <ver.shiro>1.2.5</ver.shiro>
+        <ver.log4j2>2.6.2</ver.log4j2>
+        <ver.shiro>1.3.0</ver.shiro>
+        <ver.jackson>2.8.1</ver.jackson>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -79,7 +81,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.7</version>
+                <version>1.2.16</version>
             </dependency>
 
 
@@ -124,12 +126,12 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
-                <version>2.7.4</version>
+                <version>${ver.jackson}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>2.7.4</version>
+                <version>${ver.jackson}</version>
             </dependency>
             <!-- jackson -->
 
@@ -170,7 +172,7 @@
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
-                <version>9.4.1208.jre7</version>
+                <version>9.4.1209.jre7</version>
             </dependency>
             <!-- 本地开发使用的 derby 数据库 -->
             <dependency>
@@ -182,26 +184,26 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
-                <version>1.0.20</version>
+                <version>1.0.25</version>
             </dependency>
 
             <dependency>
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>
-                <version>2.4.6</version>
+                <version>2.4.7</version>
             </dependency>
 
 
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
-                <version>1.2.16</version>
+                <version>1.4.3</version>
             </dependency>
 
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
-                <version>3.4.0</version>
+                <version>3.4.1</version>
             </dependency>
 
             <dependency>
@@ -235,7 +237,7 @@
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.4.191</version>
+                <version>1.4.192</version>
             </dependency>
             <!--test -->
             <!--shiro-->
@@ -265,7 +267,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.1.3</version>
+            <version>1.1.7</version>
             <optional>true</optional>
         </dependency>
 
@@ -307,7 +309,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.6</version>
+            <version>1.16.10</version>
             <scope>provided</scope>
             <!--主要用来对代码自动生成 getter setter 构造方法的工具，需要 IDE 支持才不会彻底报错。
             编译后不再需要，所以使用scope 为 provide-->
@@ -321,7 +323,7 @@
         <repository>
             <id>repo.chanjet.edu</id>
             <name>edu.chanjet.com maven repository</name>
-            <url>http://172.18.4.65:8480/content/groups/public/</url>
+            <url>http://172.18.4.161:8102/repository/chanjetedu-public/</url>
             <snapshots>
                 <updatePolicy>always</updatePolicy>
             </snapshots>
@@ -331,7 +333,7 @@
         <pluginRepository>
             <id>repo.chanjet.edu</id>
             <name>edu.chanjet.com maven repository</name>
-            <url>http://172.18.4.65:8480/content/groups/public/</url>
+            <url>http://172.18.4.161:8102/repository/chanjetedu-public/</url>
         </pluginRepository>
     </pluginRepositories>
 
