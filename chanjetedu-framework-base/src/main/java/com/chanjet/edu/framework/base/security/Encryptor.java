@@ -7,6 +7,8 @@ import org.springframework.core.serializer.DefaultDeserializer;
 import org.springframework.core.serializer.support.DeserializingConverter;
 import org.springframework.core.serializer.support.SerializingConverter;
 import org.springframework.util.Assert;
+import sun.security.provider.Sun;
+import sun.security.provider.VerificationProvider;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
@@ -14,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 
 /**
@@ -64,17 +65,14 @@ public class Encryptor {
         SecureRandom sr;
         try {
             keygen = KeyGenerator.getInstance(encryptType.getName());
-            sr = SecureRandom.getInstance("SHA1PRNG", "Crypto");
-
+            sr = SecureRandom.getInstance("SHA1PRNG", new Sun()); // 固定算法和供应商
         } catch (NoSuchAlgorithmException e) {
             logger.warn("不支持的加密类型：{}", encryptType);
-            return;
-        } catch (NoSuchProviderException e) {
-            logger.warn("不支持的 Provider：{}", "Crypto");
             return;
         }
         sr.setSeed(password.getBytes());
         keygen.init(128, sr);
+        new VerificationProvider();
         SecretKey secretKey = keygen.generateKey();
         byte[] enCodeFormat = secretKey.getEncoded();
         key = new SecretKeySpec(enCodeFormat, encryptType.getName());
