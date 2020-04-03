@@ -19,7 +19,7 @@
 
 
     <properties>
-        <ver.spring>4.3.2.RELEASE</ver.spring>
+        <ver.spring>5.2.5.RELEASE</ver.spring>
         <ver.hibernate>5.2.2.Final</ver.hibernate>
         <ver.struts>2.5.2</ver.struts>
         <ver.slf4j>1.7.21</ver.slf4j>
